@@ -19,10 +19,10 @@ matrix:
     include:
         # Only run HHVM against trunk.
         - php: hhvm
-          env: TRAVISCI_RUN=phpunit WP_VERSION=master
+          env: WP_VERSION=master
         # Only run nightly against trunk.
         - php: nightly
-          env: TRAVISCI_RUN=phpunit WP_VERSION=master
+          env: WP_VERSION=master
     allow_failures:
         - php: hhvm
         - php: nightly
