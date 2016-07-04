@@ -39,9 +39,9 @@ before_script:
     - source travis.sh
     - install-wordpress
     # Start up a web server.
-    - php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" >/dev/null 2>&1 &
+    - php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" >/dev/null &
     # Start up the webdriver.
-    - phantomjs --webdriver=4444 >/dev/null 2>&1 &
+    - phantomjs --webdriver=4444 >/dev/null &
     # Install Codeception and WP Browser.
     # Doing this last gives the webdriver and server time to start up.
     - composer install --prefer-source
