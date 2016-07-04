@@ -24,7 +24,7 @@ before_script:
     - export WP_VERSION=master
     - export WP_DEVELOP_DIR=/tmp/wordpress
     - export WP_CORE_DIR=/tmp/wordpress/src
-    - export WP_CEPT_SERVER='localhost:8888'
+    - export WP_CEPT_SERVER='127.0.0.1:8888'
     # Install WordPress
     - source travis.sh
     - install-wordpress
