@@ -7,22 +7,13 @@ php:
     - 5.6
     - 7.0
 
-env:
-    - WP_VERSION=master
-    - WP_VERSION=4.5
-    - WP_VERSION=4.4
-
 # Use the new container-based infrastructure (it's faster).
 sudo: false
 
 matrix:
     include:
-        # Only run HHVM against trunk.
         - php: hhvm
-          env: WP_VERSION=master
-        # Only run nightly against trunk.
         - php: nightly
-          env: WP_VERSION=master
     allow_failures:
         - php: hhvm
         - php: nightly
@@ -30,6 +21,7 @@ matrix:
 
 before_script:
     # Define vars.
+    - export WP_VERSION=master
     - export WP_DEVELOP_DIR=/tmp/wordpress
     - export WP_CORE_DIR=/tmp/wordpress/src
     - export WP_CEPT_SERVER='localhost:8888'
