@@ -39,7 +39,7 @@ before_script:
     # Start up a web server.
     - php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" &
     # Start up the webdriver.
-    - phantomjs --webdriver=4444 &
+    - phantomjs --webdriver=4444 --webdriver-loglevel=DEBUG --debug=true &
     # Install Codeception and WP Browser.
     # Doing this last gives the webdriver and server time to start up.
     - composer install --prefer-source
