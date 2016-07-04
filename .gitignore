@@ -1,0 +1,4 @@
+codeception.yml
+tests/codeception/_output/
+tests/codeception/_support/_generated/
+vendor/
