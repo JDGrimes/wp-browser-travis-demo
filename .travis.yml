@@ -2,7 +2,7 @@
 
 language: php
 
-# 5.4 is required for Codeception.
+# 5.6 is required for Codeception.
 php:
     - 5.6
     - 7.0
