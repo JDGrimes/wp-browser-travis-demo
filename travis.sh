@@ -24,7 +24,8 @@ install-wordpress() {
 	echo "
 
 		// Support enabling multisite by the presence of this file.
-		if ( file_exists( dirname( __FILE__ ) . '/is-multisite' ) ) {
+		// We don't define this during install because of how the installer works.
+		if ( ! defined( 'WP_INSTALLING' ) && file_exists( dirname( __FILE__ ) . '/is-multisite' ) ) {
 			define( 'MULTISITE', true );
 			define( 'SUBDOMAIN_INSTALL', false );
 			\$GLOBALS['base'] = '/';
