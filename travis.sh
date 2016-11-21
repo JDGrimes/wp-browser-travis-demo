@@ -21,6 +21,11 @@ install-wordpress() {
 
 	# Configure WordPress for access through a web server.
 	sed -i "s/example.org/$WP_CEPT_SERVER/" wp-config.php
+
+	# Install.
+	php tests/phpunit/includes/install.php wp-config.php
+
+	# Update the config to actually load WordPress, and add multisite support.
 	echo "
 
 		// Support enabling multisite by the presence of this file.
@@ -34,9 +39,6 @@ install-wordpress() {
 		require_once(ABSPATH . 'wp-settings.php');
 
 	" >> wp-config.php
-
-	# Install.
-	php tests/phpunit/includes/install.php wp-config.php
 
 	cd -
 }
