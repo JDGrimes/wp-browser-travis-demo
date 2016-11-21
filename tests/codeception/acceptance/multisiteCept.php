@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-if ( ! is_multisite() ) {
+if ( ! getenv( 'WP_MULTISITE' ) ) {
 	$scenario->skip( 'Multisite must be enabled.' );
 }
 
