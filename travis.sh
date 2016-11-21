@@ -25,39 +25,21 @@ install-wordpress() {
 	# Install.
 	php tests/phpunit/includes/install.php wp-config.php
 
-	# Update the config to actually load WordPress, and add multisite support.
-	echo "
+	# Support multisite.
+	if [[ $WP_MULTISITE = 1 ]]; then
 
-		// Support enabling multisite by the presence of this file.
-		// We don't define this during install because of how the installer works.
-		if ( ! defined( 'WP_INSTALLING' ) && file_exists( dirname( __FILE__ ) . '/is-multisite' ) ) {
+		# Update the config to enable multisite.
+		echo "
+
 			define( 'MULTISITE', true );
 			define( 'SUBDOMAIN_INSTALL', false );
 			\$GLOBALS['base'] = '/';
-		}
 
-		require_once(ABSPATH . 'wp-settings.php');
+		" >> wp-config.php
+	fi
 
-	" >> wp-config.php
-
-	cd -
-}
-
-# Enable multisite on this WordPress install.
-enable-multisite() {
-
-	cd "$WP_DEVELOP_DIR"
-
-	# Our wp-config.php automatically enables multisite if this file exists.
-	# Doing this via a file allows us to enable and disable multisite easily, and
-	# is superior to passing a query var, since that would only affect the first
-	# page, not any links clicked on during the tests.
-	touch "$WP_DEVELOP_DIR/is-multisite"
-
-	# The installer listens for this env var.
-	export WP_MULTISITE=1
-
-	php tests/phpunit/includes/install.php wp-config.php
+	# Update the config to actually load WordPress.
+	echo "require_once(ABSPATH . 'wp-settings.php');" >> wp-config.php
 
 	cd -
 }
