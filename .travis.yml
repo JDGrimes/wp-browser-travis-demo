@@ -38,5 +38,7 @@ before_script:
 
 script:
     - vendor/bin/wpcept run
+    # Run the tests as multisite as well.
+    - touch "$WP_DEVELOP_DIR/is-multisite" && vendor/bin/wpcept run
 
 # EOF
