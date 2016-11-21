@@ -7,6 +7,11 @@ php:
     - 5.6
     - 7.0
 
+# Run against regular and multisite.
+env:
+    - WP_MULTISITE=0
+    - WP_MULTISITE=1
+
 # Use the new container-based infrastructure (it's faster).
 sudo: false
 
@@ -38,7 +43,5 @@ before_script:
 
 script:
     - vendor/bin/wpcept run
-    # Run the tests as multisite as well.
-    - enable-multisite && vendor/bin/wpcept run
 
 # EOF
