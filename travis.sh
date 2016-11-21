@@ -23,7 +23,7 @@ install-wordpress() {
 	sed -i "s/example.org/$WP_CEPT_SERVER/" wp-config.php
 
 	# Install.
-	php tests/phpunit/includes/install.php wp-config.php
+	php tests/phpunit/includes/install.php wp-config.php "$WP_MULTISITE"
 
 	# Support multisite.
 	if [[ $WP_MULTISITE = 1 ]]; then
