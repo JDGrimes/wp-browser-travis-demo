@@ -21,9 +21,39 @@ install-wordpress() {
 
 	# Configure WordPress for access through a web server.
 	sed -i "s/example.org/$WP_CEPT_SERVER/" wp-config.php
-	echo "require_once(ABSPATH . 'wp-settings.php');" >> wp-config.php
+	echo "
+
+		// Support enabling multisite by the presence of this file.
+		if ( file_exists( dirname( __FILE__ ) . '/is-multisite' ) ) ) {
+			define( 'MULTISITE', true );
+			define( 'SUBDOMAIN_INSTALL', false );
+			\$GLOBALS['base'] = '/';
+		}
+
+		require_once(ABSPATH . 'wp-settings.php');
+
+	" >> wp-config.php
 
 	# Install.
+	php tests/phpunit/includes/install.php wp-config.php
+
+	cd -
+}
+
+# Enable multisite on this WordPress install.
+enable-multisite() {
+
+	cd "$WP_DEVELOP_DIR"
+
+	# Our wp-config.php automatically enables multisite if this file exists.
+	# Doing this via a file allows us to enable and disable multisite easily, and
+	# is superior to passing a query var, since that would only affect the first
+	# page, not any links clicked on during the tests.
+	touch "$WP_DEVELOP_DIR/is-multisite"
+
+	# The installer listens for this env var.
+	export WP_MULTISITE=1
+
 	php tests/phpunit/includes/install.php wp-config.php
 
 	cd -
