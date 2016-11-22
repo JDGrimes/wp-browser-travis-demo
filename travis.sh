@@ -20,7 +20,7 @@ install-wordpress() {
 	mysql -e 'CREATE DATABASE wordpress_test;' -uroot
 
 	# Configure WordPress for access through a web server.
-	sed -i "s/example.org/$WP_CEPT_SERVER/" wp-config.php
+	sed -i "s/'example.org'/'$WP_CEPT_SERVER'/" wp-config.php
 
 	# Install.
 	php tests/phpunit/includes/install.php wp-config.php "$WP_MULTISITE"
