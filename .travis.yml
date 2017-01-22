@@ -2,6 +2,10 @@
 
 language: php
 
+# Configure caches
+cache:
+  apt: true
+  
 # 5.6 is required for Codeception.
 php:
     - 5.6
@@ -19,6 +23,15 @@ matrix:
     include:
         - php: hhvm
           env: WP_MULTISITE=0
+          sudo: required
+          dist: trusty
+          group: edge
+          addons:
+            apt:
+              packages:
+              - mysql-server-5.6
+              - mysql-client-core-5.6
+              - mysql-client-5.6
         - php: nightly
           env: WP_MULTISITE=0
     allow_failures:
